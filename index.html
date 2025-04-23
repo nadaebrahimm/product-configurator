@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Custom T-Shirt Designer</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="icon" type="image/png" href="/images/favicon-32x32.png">
+        <!-- Font Awesome for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <img src="/images/logo.png" alt="Custom T-Shirt Designer Logo" class="logo">
+                <h1>Custom T-Shirt Designer</h1>
+            </div>
+            <div class="user-controls">
+                <button id="loginBtn" class="btn"><i class="fas fa-user"></i> Login</button>
+                <button id="saveBtn" class="btn"><i class="fas fa-save"></i> Save Design</button>
+                <button id="shareBtn" class="btn"><i class="fas fa-share-alt"></i> Share</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="configurator">
+            <div class="product-preview">
+                <div class="t-shirt-container">
+                    <div id="tshirt-base" class="white">
+                        <div id="design-area">
+                            <div id="design-text" class="design-element">Your Text Here</div>
+                            <div id="design-image" class="design-element"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-panel">
+                <div class="control-section">
+                    <h3>T-Shirt Color</h3>
+                    <div class="color-options">
+                        <div class="color-option white active" data-color="white"></div>
+                        <div class="color-option black" data-color="black"></div>
+                        <div class="color-option red" data-color="red"></div>
+                        <div class="color-option blue" data-color="blue"></div>
+                        <div class="color-option green" data-color="green"></div>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3>Custom Text</h3>
+                    <input type="text" id="text-input" placeholder="Enter your text">
+                    <div class="text-controls">
+                        <div class="font-selection">
+                            <label for="font-select">Font:</label>
+                            <select id="font-select">
+                                <option value="Arial">Arial</option>
+                                <option value="Verdana">Verdana</option>
+                                <option value="Helvetica">Helvetica</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Courier New">Courier New</option>
+                            </select>
+                        </div>
+                        <div class="text-color">
+                            <label for="text-color">Color:</label>
+                            <input type="color" id="text-color" value="#000000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3>Upload Image</h3>
+                    <input type="file" id="image-upload" accept="image/*">
+                    <div class="image-size-control">
+                        <label for="image-size">Image Size:</label>
+                        <input type="range" id="image-size" min="20" max="200" value="100">
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3>Size</h3>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="S">S</button>
+                        <button class="size-btn" data-size="M">M</button>
+                        <button class="size-btn active" data-size="L">L</button>
+                        <button class="size-btn" data-size="XL">XL</button>
+                        <button class="size-btn" data-size="XXL">XXL</button>
+                    </div>
+                </div>
+
+                <div class="price-section">
+                    <h3>Total Price: <span id="total-price">$25.00</span></h3>
+                    <button id="order-btn" class="btn primary-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design Saved Notification -->
+        <div id="notification" class="notification hidden">
+            <p>Design saved successfully!</p>
+        </div>
+
+        <!-- Login Modal -->
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Login / Sign Up</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="signup">Sign Up</button>
+                </div>
+                <div id="login-tab" class="tab-content active">
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Login</button>
+                    </form>
+                </div>
+                <div id="signup-tab" class="tab-content">
+                    <form id="signup-form">
+                        <div class="form-group">
+                            <label for="signup-name">Name</label>
+                            <input type="text" id="signup-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" required>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Share Modal -->
+        <div id="share-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Share Your Design</h2>
+                <p>Copy this link to share your design:</p>
+                <div class="share-link-container">
+                    <input type="text" id="share-link" readonly>
+                    <button id="copy-link-btn" class="btn">Copy</button>
+                </div>
+                <div class="social-share">
+                    <button class="social-btn facebook"><i class="fab fa-facebook-f"></i></button>
+                    <button class="social-btn twitter"><i class="fab fa-twitter"></i></button>
+                    <button class="social-btn instagram"><i class="fab fa-instagram"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Custom T-Shirt Designer | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <!-- Firebase Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.0/firebase-firestore-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.0/firebase-storage-compat.min.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
